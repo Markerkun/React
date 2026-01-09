@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import NewsCard from './components/NewsCard.jsx'
-import NewsCard from './components/Shape.jsx'
+import Shape from './components/Shape.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,9 +16,13 @@ function App() {
         description="У понеділок, 6 січня, з Рівного в напрямку Городка вирушив тролейбус. Це був перший технічний рейс, який мав на меті перевірити справність оновленої контактної мережі. Відновлення мережі виконала Служба відновлення у Рівненській області."
         source="https://www.prorivne.rv.ua/news/na-marshruti-rivne-gorodok-znovu-zyavyvsya-trolejbus-startuvaly-pershi-vyprobuvannya/"
       />
+    <div style={{ display: "flex" }}>
+      <Shape type="circle" color="yellow" />
+      <Shape type="square" width={250} height={200} color="blue" />
+      <Shape type="square" width={250} height={250} color="purple" />
+      <Shape type="circle" width={150} height={150} color="green" />
+    </div>
 
-      <Shape type="circle" color="blue" />
-      <Shape type="square" color="red" />
     </>
   )
 }
