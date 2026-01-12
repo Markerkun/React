@@ -16,8 +16,8 @@ function App() {
   const [Rating, setRating] = useState(5)
   const [Kitchen, setKitchen] = useState('Italian')
 
-  return (
-    <>
+  return (  
+  <>  
     <div>
       <button onClick={() => setCount((count) => count + 1)}>{count}</button>
     </div>
@@ -39,19 +39,32 @@ function App() {
     </div>
     <div style={{display: 'flex', gap: '10px'}}>
       <h2>{Address}</h2>
-      <input style={{height: '30px', marginTop: '25px'}} type="radio" onChange={(event) => setAddress(event.target.value)}/>
+      <input style={{height: '30px', marginTop: '25px'}} type="text" onChange={(event) => setAddress(event.target.value)}/>
     </div>
     <div style={{display: 'flex', gap: '10px'}}>
       <h2>{Rating}</h2>
-      <input style={{height: '30px', marginTop: '25px'}} type="number" onChange={(event) => setRating(event.target.value)}/>
+      <div>
+      <input style={{height: '30px', marginTop: '25px'}} name = "radio" type="radio" onChange={(event) => setRating(event.target.value)} value={1}/>1
+      <input style={{height: '30px', marginTop: '25px'}} name = "radio" type="radio" onChange={(event) => setRating(event.target.value)} value={2}/>2
+      <input style={{height: '30px', marginTop: '25px'}} name = "radio" type="radio" onChange={(event) => setRating(event.target.value)} value={3}/>3
+      <input style={{height: '30px', marginTop: '25px'}} name = "radio" type="radio" onChange={(event) => setRating(event.target.value)} value={4}/>4
+      <input style={{height: '30px', marginTop: '25px'}} name = "radio" type="radio" onChange={(event) => setRating(event.target.value)} value={5}/>5
+      </div>
     </div>
     <div style={{display: 'flex', gap: '10px'}}>
       <h2>{Kitchen}</h2>
-      <input style={{height: '30px', marginTop: '25px'}} type="text" onChange={(event) => setKitchen(event.target.value)}/>
+      <div style={{marginTop: '25px'}}>
+      <select value={Kitchen} onChange={(event) => setKitchen(event.target.value)}>
+      <option value="European">European</option>
+      <option value="Asian">Asian</option>
+      <option value="FastFood">Fast food</option>
+      <option value="Vegetarian">Vegetarian</option>
+    </select>
+      </div>
     </div>
 
     </>
   )
 }
 
-export default App
+export default App;
