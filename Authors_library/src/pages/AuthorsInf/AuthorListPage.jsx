@@ -1,11 +1,9 @@
-import authorCard from "./authorCard";
-import authorCreateForm from "./authorCreateForm";
+import AuthorCard from "./AuthorCard";
+import AuthorCreateForm from "./AuthorCreateForm";
 import authors from "./authors.json";
 import { Box, Grid } from "@mui/material";
 
-// sx == style
-
-const authorListPage = () => {
+const AuthorListPage = () => {
     return (
         <Box
             sx={{
@@ -15,15 +13,16 @@ const authorListPage = () => {
             }}
         >
             <Grid container spacing={2} mx="100px" my="50px">
-                {authors.map((b) => (
-                    <Grid size={3} key={b.id}>
-                        <authorCard author={b}/>
+                {authors.map((author) => (
+                    <Grid item xs={12} sm={6} md={3} key={author.id}>
+                        <AuthorCard author={author} />
                     </Grid>
                 ))}
             </Grid>
-            <authorCreateForm />
+
+            <AuthorCreateForm />
         </Box>
     );
 };
 
-export default authorListPage;
+export default AuthorListPage;
