@@ -1,14 +1,13 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-import authorCreateForm from "./pages/AuthorsInf/AuthorCreateForm";
-import authorListPage from "./pages/AuthorsInf/AuthorListPage";
+import AuthorCreateForm from "./pages/AuthorsInf/AuthorCreateForm";
+import AuthorListPage from "./pages/AuthorsInf/AuthorListPage";
 
 function App() {
     return (
         <>
             <Navbar />
-            <authorListPage />
-            <authorCreateForm />
+            <AuthorListPage />
         </>
     );
 }

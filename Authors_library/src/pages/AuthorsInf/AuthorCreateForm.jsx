@@ -60,7 +60,7 @@ const initValues = {
     cover: "",
 };
 
-const authorCreateForm = () => {
+const AuthorCreateForm = () => {
     const handleSubmit = (values) => {
         console.log(values);
     };
@@ -73,20 +73,20 @@ const authorCreateForm = () => {
         ) : null;
     };
 
-    // validation scheme
     const maxYear = new Date().getFullYear();
     const validationScheme = object({
-        title: string()
-            .required("Обов'язкове поле")
-            .max(100, "Максимальна довжина 100 символів"),
-        author: string().max(100, "Максимальна довжина 100 символів"),
-        genre: string()
+        Name: string()
             .required("Обов'язкове поле")
             .max(50, "Максимальна довжина 50 символів"),
-        year: number()
-            .min(0, "Рік не може бути від'ємним")
-            .max(maxYear, `Рік не може бути більшим за ${maxYear}`)
-            .required("Обов'язкове поле"),
+        lastName: string()
+            .required("Обов'язкове поле")
+            .max(50, "Максимальна довжина 50 символів"),
+        birthday: string()
+            .required("Обов'язкове поле")
+            .max(50, "Максимальна довжина 50 символів"),
+        Country: string()
+            .required("Обов'язкове поле")
+            .max(50, "Максимальна довжина 50 символів"),
     });
 
     // formik
@@ -108,7 +108,7 @@ const authorCreateForm = () => {
                             fontSize: "clamp(2rem, 10vw, 2.15rem)",
                         }}
                     >
-                        Додавання нової книги
+                        Додавання нової картки автора
                     </Typography>
                     <Box
                         component="form"
@@ -121,73 +121,72 @@ const authorCreateForm = () => {
                         }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="title">Назва</FormLabel>
+                            <FormLabel htmlFor="Name">ім'я</FormLabel>
                             <TextField
-                                name="title"
-                                placeholder="Назва книги"
-                                autoComplete="title"
+                                name="Name"
+                                placeholder="ім'я автора"
+                                autoComplete="Name"
                                 autoFocus
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.title}
+                                value={formik.values.Name}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("title")}
+                        {getError("Name")}
                         <FormControl>
-                            <FormLabel htmlFor="author">Автор</FormLabel>
+                            <FormLabel htmlFor="lastName">Прізвище</FormLabel>
                             <TextField
-                                name="author"
-                                placeholder="Автор"
-                                autoComplete="author"
+                                name="lastName"
+                                placeholder="Прізвище автора"
+                                autoComplete="lastName"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.author}
+                                value={formik.values.lastName}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("author")}
+                        {getError("lastName")}
                         <FormControl>
-                            <FormLabel htmlFor="genre">Жанр</FormLabel>
+                            <FormLabel htmlFor="birthday">Дата народження</FormLabel>
                             <TextField
-                                name="genre"
-                                placeholder="Жанр"
-                                autoComplete="genre"
+                                name="birthday"
+                                placeholder="Дата народження"
+                                autoComplete="birthday"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.genre}
+                                value={formik.values.birthday   }
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("genre")}
+                        {getError("birthday")}
                         <FormControl>
-                            <FormLabel htmlFor="year">Рік</FormLabel>
+                            <FormLabel htmlFor="Country">Країна</FormLabel>
                             <TextField
-                                name="year"
-                                placeholder="Рік публікацї"
-                                autoComplete="year"
+                                name="Country"
+                                placeholder="Країна"
+                                autoComplete="Country"
                                 fullWidth
-                                type="number"
                                 variant="outlined"
-                                value={formik.values.year}
+                                value={formik.values.Country}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                             {/* error */}
-                            {getError("year")}
+                            {getError("Country")}
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="cover">Обкладинка</FormLabel>
+                            <FormLabel htmlFor="Image">Фото автора</FormLabel>
                             <TextField
-                                name="cover"
-                                placeholder="Обкладинка"
+                                name="Image"
+                                placeholder="Фото автора"
                                 autoComplete="cover"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.cover}
+                                value={formik.values.Image}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />

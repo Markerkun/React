@@ -16,7 +16,7 @@ const AuthorCard = ({ author }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     return (
-        <Card sx={{ maxWidth: 345, height: "100%" }}>
+        <Card sx={{ mx: "auto", maxWidth: 345, height: "100%" }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }}>

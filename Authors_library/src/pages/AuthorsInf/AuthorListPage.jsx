@@ -10,9 +10,10 @@ const AuthorListPage = () => {
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
+                marginLeft: 10,
             }}
         >
-            <Grid container spacing={2} mx="100px" my="50px">
+            <Grid container spacing={2} mx="auto" my="50px" marginTop={10}>
                 {authors.map((author) => (
                     <Grid item xs={12} sm={6} md={3} key={author.id}>
                         <AuthorCard author={author} />
