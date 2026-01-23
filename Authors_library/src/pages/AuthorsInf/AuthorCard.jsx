@@ -9,11 +9,15 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 
-const AuthorCard = ({ author }) => {
-    const [isFavorite, setIsFavorite] = useState(false);
+const AuthorCard = ({ author, deleteCallback }) => {
+
+    const deleteClickHandle = () => {
+        deleteCallback(author.id);
+    }
+
 
     return (
         <Card sx={{ mx: "auto", maxWidth: 345, height: "100%" }}>
@@ -25,8 +29,8 @@ const AuthorCard = ({ author }) => {
                     </Avatar>
                 }
                 action={
-                    <IconButton>
-                        <MoreVertIcon />
+                    <IconButton onClick={deleteClickHandle}>
+                        <DeleteIcon />
                     </IconButton>
                 }
                 title={`${author.firstName} ${author.lastName}`}
