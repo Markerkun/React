@@ -53,16 +53,16 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 const initValues = {
-    title: "",
-    author: "",
-    genre: "",
-    year: "",
-    cover: "",
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    country: "",
+    image: "",
 };
 
-const AuthorCreateForm = () => {
+const AuthorCreateForm = (createCallback) => {
     const handleSubmit = (values) => {
-        console.log(values);
+        createCallback(values);
     };
 
     const getError = (prop) => {
@@ -121,20 +121,20 @@ const AuthorCreateForm = () => {
                         }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="Name">ім'я</FormLabel>
+                            <FormLabel htmlFor="firstName">ім'я</FormLabel>
                             <TextField
-                                name="Name"
+                                name="firstName"
                                 placeholder="ім'я автора"
-                                autoComplete="Name"
+                                autoComplete="firstName"
                                 autoFocus
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.Name}
+                                value={formik.values.firstName}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("Name")}
+                        {getError("firstName")}
                         <FormControl>
                             <FormLabel htmlFor="lastName">Прізвище</FormLabel>
                             <TextField
@@ -164,29 +164,29 @@ const AuthorCreateForm = () => {
                         </FormControl>
                         {getError("birthday")}
                         <FormControl>
-                            <FormLabel htmlFor="Country">Країна</FormLabel>
+                            <FormLabel htmlFor="country">Країна</FormLabel>
                             <TextField
-                                name="Country"
+                                name="country"
                                 placeholder="Країна"
-                                autoComplete="Country"
+                                autoComplete="country"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.Country}
+                                value={formik.values.country}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                             {/* error */}
-                            {getError("Country")}
+                            {getError("country")}
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="Image">Фото автора</FormLabel>
+                            <FormLabel htmlFor="image">Фото автора</FormLabel>
                             <TextField
-                                name="Image"
+                                name="image"
                                 placeholder="Фото автора"
                                 autoComplete="cover"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.Image}
+                                value={formik.values.image}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />

@@ -22,12 +22,6 @@ const AuthorCard = ({ author, deleteCallback }) => {
     return (
         <Card sx={{ mx: "auto", maxWidth: 345, height: "100%" }}>
             <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500] }}>
-                        {author.firstName[0]}
-                        {author.lastName[0]}
-                    </Avatar>
-                }
                 action={
                     <IconButton onClick={deleteClickHandle}>
                         <DeleteIcon />
@@ -55,10 +49,7 @@ const AuthorCard = ({ author, deleteCallback }) => {
             </CardContent>
 
             <CardActions disableSpacing>
-                <IconButton
-                    onClick={() => setIsFavorite(!isFavorite)}
-                    color={isFavorite ? "error" : "default"}
-                >
+                <IconButton>
                     <FavoriteIcon />
                 </IconButton>
                 <IconButton>
