@@ -53,16 +53,37 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 const initValues = {
-    firstName: "",
-    lastName: "",
-    birthday: "",
-    country: "",
-    image: "",
+    FirstName: "",
+    LastName: "",
+    Birthday: "",
+    Country: "",
+    Image: "",
 };
 
 const AuthorCreateForm = (createCallback) => {
-    const handleSubmit = (values) => {
-        createCallback(values);
+
+
+    const handleSubmit = (NewAuthor) => {
+        let authors = [];
+        const localData = localStorage.getItem("authors");
+        if (localData) {
+            authors = JSON.parse(localData);
+        }
+
+        const Id = authors.reduce((acc, author) => Math.max(acc, author.id), 0) + 1;
+        NewAuthor.id = Id;
+        NewAuthor.image = NewAuthor.Image;
+        delete NewAuthor.Image;
+        NewAuthor.name = NewAuthor.FirstName;
+        delete NewAuthor.FirstName;
+        NewAuthor.lastName = NewAuthor.LastName;
+        delete NewAuthor.LastName;
+        NewAuthor.birthday = NewAuthor.Birthday;
+        delete NewAuthor.Birthday;
+        NewAuthor.country = NewAuthor.Country;
+        delete NewAuthor.Country;
+        const newList = [...authors, NewAuthor];
+        localStorage.setItem("authors", JSON.stringify(newList));
     };
 
     const getError = (prop) => {
@@ -121,72 +142,72 @@ const AuthorCreateForm = (createCallback) => {
                         }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="firstName">ім'я</FormLabel>
+                            <FormLabel htmlFor="FirstName">ім'я</FormLabel>
                             <TextField
-                                name="firstName"
+                                name="FirstName"
                                 placeholder="ім'я автора"
-                                autoComplete="firstName"
+                                autoComplete="FirstName"
                                 autoFocus
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.firstName}
+                                value={formik.values.FirstName}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("firstName")}
+                        {getError("FirstName")}
                         <FormControl>
-                            <FormLabel htmlFor="lastName">Прізвище</FormLabel>
+                            <FormLabel htmlFor="LastName">Прізвище</FormLabel>
                             <TextField
-                                name="lastName"
+                                name="LastName"
                                 placeholder="Прізвище автора"
-                                autoComplete="lastName"
+                                autoComplete="LastName"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.lastName}
+                                value={formik.values.LastName}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("lastName")}
+                        {getError("LastName")}
                         <FormControl>
-                            <FormLabel htmlFor="birthday">Дата народження</FormLabel>
+                            <FormLabel htmlFor="Birthday">Дата народження</FormLabel>
                             <TextField
-                                name="birthday"
+                                name="Birthday"
                                 placeholder="Дата народження"
-                                autoComplete="birthday"
+                                autoComplete="Birthday"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.birthday   }
+                                value={formik.values.Birthday}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                         </FormControl>
-                        {getError("birthday")}
+                        {getError("Birthday")}
                         <FormControl>
-                            <FormLabel htmlFor="country">Країна</FormLabel>
+                            <FormLabel htmlFor="Country">Країна</FormLabel>
                             <TextField
-                                name="country"
+                                name="Country"
                                 placeholder="Країна"
-                                autoComplete="country"
+                                autoComplete="Country"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.country}
+                                value={formik.values.Country}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                             {/* error */}
-                            {getError("country")}
+                            {getError("Country")}
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="image">Фото автора</FormLabel>
+                            <FormLabel htmlFor="Image">Фото автора</FormLabel>
                             <TextField
-                                name="image"
+                                name="Image"
                                 placeholder="Фото автора"
                                 autoComplete="cover"
                                 fullWidth
                                 variant="outlined"
-                                value={formik.values.image}
+                                value={formik.values.Image}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
