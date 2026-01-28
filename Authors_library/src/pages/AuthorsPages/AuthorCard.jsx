@@ -12,7 +12,15 @@ import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 
-const AuthorCard = ({ author, deleteCallback }) => {
+const AuthorCard = ({ author, deleteCallback, favoriteCallback }) => {
+
+    const [isFavorite, setIsFavorite] = useState(author.isFavorite);
+
+    const setFavoriteHandle = () => {
+        const favoriteState = !isFavorite;
+        setIsFavorite(favoriteState);
+        favoriteCallback(author.id, favoriteState);
+    };
 
     const deleteClickHandle = () => {
         deleteCallback(author.id);
@@ -20,22 +28,7 @@ const AuthorCard = ({ author, deleteCallback }) => {
 
 
     return (
-        <Card sx={{ mx: "auto", maxWidth: 345, height: "100%" }}>
-            <CardHeader
-                action={
-                    <IconButton 
-                        onClick={deleteClickHandle}
-                        color="error"
-                        aria-label="settings"
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                }
-                title={`${author.firstName} ${author.lastName}`}
-                subheader={author.country}
-
-
-            />
+        <Card sx={{ mx: "auto", maxWidth: 345, height: "100%", minWidth: 300 }}>
 
             <CardMedia
                 component="img"
@@ -48,18 +41,35 @@ const AuthorCard = ({ author, deleteCallback }) => {
                 alt={`${author.firstName} ${author.lastName}`}
             />
 
-            <CardContent>
+            <CardContent style={{ paddingBottom: 0, paddingTop: 5}}>
+                <h2 style={{ margin: 2, fontFamily: 'Lucida Sans Unicode' }}>{author.firstName} {author.lastName}<br /></h2>
+                <Typography variant="body2" color="text.secondary">
+                    {author.country}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
                     Дата народження: {author.birthday}
                 </Typography>
             </CardContent>
 
-            <CardActions disableSpacing>
-                <IconButton>
-                    <FavoriteIcon />
-                </IconButton>
+            <CardActions disableSpacing style={{ padding: 0, justifyContent: "space-between" }}>
                 <IconButton>
                     <ShareIcon />
+                </IconButton>
+
+                <IconButton
+                    onClick={setFavoriteHandle}
+                    color={isFavorite ? "error" : ""}
+                    aria-label="add to favorites"
+                >
+                    <FavoriteIcon />
+                </IconButton>
+
+
+                <IconButton 
+                    onClick={deleteClickHandle}
+                    color="error"
+                    aria-label="settings">
+                    <DeleteIcon />
                 </IconButton>
             </CardActions>
         </Card>

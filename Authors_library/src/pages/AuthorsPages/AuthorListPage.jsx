@@ -29,6 +29,17 @@ const AuthorListPage = () => {
         localStorage.setItem("authors", JSON.stringify(newList));
     }
 
+    const setFavorite = (id, favorite) => {
+        const newList = [...authors];
+        const index = newList.findIndex((b) => b.id === id);
+        if (index !== -1) {
+            newList[index].isFavorite = favorite;
+            setAuthors(newList);
+            localStorage.setItem("authors", JSON.stringify(newList));
+        }
+    };
+
+
     return (
         <Box
             sx={{
@@ -41,7 +52,7 @@ const AuthorListPage = () => {
             <Grid container spacing={2} mx="auto" my="50px" marginTop={10}>
                 {authors.map((a) => (
                     <Grid item xs={12} sm={6} md={3} key={a.id}>
-                        <AuthorCard author={a} deleteCallback={deleteAuthor} />
+                        <AuthorCard author={a} deleteCallback={deleteAuthor} favoriteCallback={setFavorite} />
                     </Grid>
                 ))}
             </Grid>

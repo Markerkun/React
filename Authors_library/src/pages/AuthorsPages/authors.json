@@ -5,7 +5,8 @@
     "lastName": "Шевченко",
     "birthday": "1814-03-09",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "lastName": "Українка",
     "birthday": "1871-02-25",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "lastName": "Франко",
     "birthday": "1856-08-27",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "lastName": "Гоголь",
     "birthday": "1809-04-01",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "lastName": "Забужко",
     "birthday": "1960-09-19",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "lastName": "Жадан",
     "birthday": "1974-08-23",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "lastName": "Андрухович",
     "birthday": "1960-03-13",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "lastName": "Костенко",
     "birthday": "1930-03-19",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "lastName": "Стус",
     "birthday": "1938-01-06",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 10,
@@ -77,7 +86,8 @@
     "lastName": "Сковорода",
     "birthday": "1722-12-03",
     "country": "Україна",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 11,
@@ -85,7 +95,8 @@
     "lastName": "Ролінґ",
     "birthday": "1965-07-31",
     "country": "Велика Британія",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5d/J._K._Rowling_2010.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5d/J._K._Rowling_2010.jpg",
+    "isFavorite": false
   },
   {
     "id": 12,
@@ -93,7 +104,8 @@
     "lastName": "Орвелл",
     "birthday": "1903-06-25",
     "country": "Велика Британія",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/George_Orwell_press_photo.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/George_Orwell_press_photo.jpg",
+    "isFavorite": false
   },
   {
     "id": 13,
@@ -101,7 +113,8 @@
     "lastName": "Гемінґвей",
     "birthday": "1899-07-21",
     "country": "США",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/ErnestHemingway.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/ErnestHemingway.jpg",
+    "isFavorite": false
   },
   {
     "id": 14,
@@ -109,7 +122,8 @@
     "lastName": "Твен",
     "birthday": "1835-11-30",
     "country": "США",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mark_Twain_by_AF_Bradley.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mark_Twain_by_AF_Bradley.jpg",
+    "isFavorite": false
   },
   {
     "id": 15,
@@ -117,7 +131,8 @@
     "lastName": "Кафка",
     "birthday": "1883-07-03",
     "country": "Чехія",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Franz_Kafka%2C_1923.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Franz_Kafka%2C_1923.jpg",
+    "isFavorite": false
   },
   {
     "id": 16,
@@ -125,7 +140,8 @@
     "lastName": "де Бальзак",
     "birthday": "1799-05-20",
     "country": "Франція",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 17,
@@ -133,7 +149,8 @@
     "lastName": "Шекспір",
     "birthday": "1564-04-23",
     "country": "Англія",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg",
+    "isFavorite": false
   },
   {
     "id": 18,
@@ -141,7 +158,8 @@
     "lastName": "Аліг'єрі",
     "birthday": "1265-05-21",
     "country": "Італія",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   },
   {
     "id": 19,
@@ -149,7 +167,8 @@
     "lastName": "Крісті",
     "birthday": "1890-09-15",
     "country": "Велика Британія",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Agatha_Christie.png"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Agatha_Christie.png",
+    "isFavorite": false
   },
   {
     "id": 20,
@@ -157,6 +176,7 @@
     "lastName": "Кінг",
     "birthday": "1947-09-21",
     "country": "США",
-    "image": ""
+    "image": "",
+    "isFavorite": false
   }
 ]
