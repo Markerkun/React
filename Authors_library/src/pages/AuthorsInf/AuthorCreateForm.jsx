@@ -60,31 +60,27 @@ const initValues = {
     Image: "",
 };
 
-const AuthorCreateForm = (createCallback) => {
+const AuthorCreateForm = ({ createCallback }) => {
 
 
-    const handleSubmit = (NewAuthor) => {
-        let authors = [];
-        const localData = localStorage.getItem("authors");
-        if (localData) {
-            authors = JSON.parse(localData);
-        }
+    const handleSubmit = (newAuthor) => {
+    const localData = localStorage.getItem("authors");
+    const authors = localData ? JSON.parse(localData) : [];
 
-        const Id = authors.reduce((acc, author) => Math.max(acc, author.id), 0) + 1;
-        NewAuthor.id = Id;
-        NewAuthor.image = NewAuthor.Image;
-        delete NewAuthor.Image;
-        NewAuthor.name = NewAuthor.FirstName;
-        delete NewAuthor.FirstName;
-        NewAuthor.lastName = NewAuthor.LastName;
-        delete NewAuthor.LastName;
-        NewAuthor.birthday = NewAuthor.Birthday;
-        delete NewAuthor.Birthday;
-        NewAuthor.country = NewAuthor.Country;
-        delete NewAuthor.Country;
-        const newList = [...authors, NewAuthor];
-        localStorage.setItem("authors", JSON.stringify(newList));
+    const id = authors.reduce((acc, a) => Math.max(acc, a.id), 0) + 1;
+
+    const preparedAuthor = {
+        id,
+        name: newAuthor.FirstName,
+        lastName: newAuthor.LastName,
+        birthday: newAuthor.Birthday,
+        country: newAuthor.Country,
+        image: newAuthor.Image,
     };
+
+    createCallback(preparedAuthor);
+}
+
 
     const getError = (prop) => {
         return formik.touched[prop] && formik.errors[prop] ? (
@@ -96,19 +92,22 @@ const AuthorCreateForm = (createCallback) => {
 
     const maxYear = new Date().getFullYear();
     const validationScheme = object({
-        Name: string()
-            .required("Обов'язкове поле")
-            .max(50, "Максимальна довжина 50 символів"),
-        lastName: string()
-            .required("Обов'язкове поле")
-            .max(50, "Максимальна довжина 50 символів"),
-        birthday: string()
-            .required("Обов'язкове поле")
-            .max(50, "Максимальна довжина 50 символів"),
-        Country: string()
-            .required("Обов'язкове поле")
-            .max(50, "Максимальна довжина 50 символів"),
-    });
+    FirstName: string()
+        .required("Обов'язкове поле")
+        .max(50, "Максимальна довжина 50 символів"),
+
+    LastName: string()
+        .required("Обов'язкове поле")
+        .max(50, "Максимальна довжина 50 символів"),
+
+    Birthday: string()
+        .required("Обов'язкове поле"),
+
+    Country: string()
+        .required("Обов'язкове поле")
+        .max(50, "Максимальна довжина 50 символів"),
+});
+
 
     // formik
     const formik = useFormik({

@@ -23,12 +23,18 @@ const AuthorCard = ({ author, deleteCallback }) => {
         <Card sx={{ mx: "auto", maxWidth: 345, height: "100%" }}>
             <CardHeader
                 action={
-                    <IconButton onClick={deleteClickHandle}>
+                    <IconButton 
+                        onClick={deleteClickHandle}
+                        color="error"
+                        aria-label="settings"
+                    >
                         <DeleteIcon />
                     </IconButton>
                 }
                 title={`${author.firstName} ${author.lastName}`}
                 subheader={author.country}
+
+
             />
 
             <CardMedia

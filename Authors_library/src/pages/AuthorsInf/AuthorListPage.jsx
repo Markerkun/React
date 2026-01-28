@@ -17,7 +17,11 @@ const AuthorListPage = () => {
         }
     }, []);
 
-    
+    const addAuthor = (newAuthor) => {
+        const newList = [...authors, newAuthor];
+        setAuthors(newList);
+        localStorage.setItem("authors", JSON.stringify(newList));
+    }
 
     const deleteAuthor = (id) => {
         const newList = authors.filter(a => a.id !== id);
@@ -41,6 +45,7 @@ const AuthorListPage = () => {
                     </Grid>
                 ))}
             </Grid>
+            <AuthorCreateForm createCallback={addAuthor} />
 
         </Box>
     );
