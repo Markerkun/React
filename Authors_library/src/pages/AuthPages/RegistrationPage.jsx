@@ -1,10 +1,6 @@
-import { useRef, useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Divider from "@mui/material/Divider";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
@@ -13,9 +9,9 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
-import ForgotPassword from "./../components/ForgotPassword";
 import { Link, useNavigate } from "react-router";
-import { GoogleIcon, FacebookIcon } from "./../components/CustomIcons";
+import { object, string, ref } from "yup";
+import { useFormik } from "formik";
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: "flex",
@@ -58,73 +54,68 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-const LoginPage = () => {
-    const [open, setOpen] = useState(false);
-    const [errors, setErrors] = useState({});
-    const emailRef = useRef(null);
-    const passwordRef = useRef(null);
+const RegisterPage = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const handleSubmit = (userData) => {
+        let users = [];
+        const localData = localStorage.getItem("users");
+        if(localData) {
+            users = JSON.parse(localData);
+        }
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const cred = {
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-        };
-
-        const result = validate(cred);
-        if (!result.result) {
-            setErrors(result.errors);
-            return;
+        if(users.length === 0) {
+            userData.role = "admin"
         } else {
-            setErrors({});
+            userData.role = "user"
         }
 
-        localStorage.setItem("auth", JSON.stringify(cred));
-        login();
-        navigate("/", { replace: true });
+        const index = users.findIndex(u => u.email === userData.email);
+
+        if(index !== -1) {
+            alert(`User with mail '${userData.email}' already exists`);
+            return;
+        }
+
+        delete userData.confirmPassword;
+        users.push(userData);
+        localStorage.setItem("users", JSON.stringify(users));
+        navigate("/login");
     };
 
-    function validate(formValues) {
-        const validateErrors = {};
-        let result = true;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const validationSchema = object({
+        firstName: string().required("Обов'язкове поле"),
+        lastName: string().required("Обов'язкове поле"),
+        email: string()
+            .required("Обов'язкове поле")
+            .email("Невірний формат пошти"),
+        password: string()
+            .required("Обов'язкове поле")
+            .min(6, "Мінімальна довжина 6 символів"),
+        confirmPassword: string()
+            .required("Обов'язкове поле")
+            .min(6, "Мінімальна довжина 6 символів")
+            .oneOf([ref("password"), null], "Паролі повинні збігатися"),
+    });
 
-        // email
-        if (formValues.email.length === 0) {
-            validateErrors.email = "Обов'язкове поле";
-            result = false;
-        } else if (!emailRegex.test(formValues.email)) {
-            validateErrors.email = "Невірний формат пошти";
-            result = false;
-        }
+    const initValues = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    };
 
-        // password
-        if (formValues.password.length === 0) {
-            validateErrors.password = "Обов'язкове поле";
-            result = false;
-        } else if (formValues.password.length < 6) {
-            validateErrors.password = "Мінімальна довжина 6 символів";
-            result = false;
-        }
-
-        return { result: result, errors: validateErrors };
-    }
+    const formik = useFormik({
+        initialValues: initValues,
+        onSubmit: handleSubmit,
+        validationSchema: validationSchema,
+    });
 
     const getError = (prop) => {
-        return errors[prop] ? (
+        return formik.errors[prop] ? (
             <Typography sx={{ mx: 1, color: "red" }} variant="h7">
-                {errors[prop]}
+                {formik.errors[prop]}
             </Typography>
         ) : null;
     };
@@ -142,11 +133,11 @@ const LoginPage = () => {
                             fontSize: "clamp(2rem, 10vw, 2.15rem)",
                         }}
                     >
-                        Sign in
+                        Registration
                     </Typography>
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        onSubmit={formik.handleSubmit}
                         noValidate
                         sx={{
                             display: "flex",
@@ -156,54 +147,86 @@ const LoginPage = () => {
                         }}
                     >
                         <FormControl>
+                            <FormLabel htmlFor="firstName">Name</FormLabel>
+                            <TextField
+                                type="text"
+                                name="firstName"
+                                placeholder="Name"
+                                autoComplete="firstName"
+                                autoFocus
+                                fullWidth
+                                variant="outlined"
+                                value={formik.values.firstName}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {getError("firstName")}
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="lastName">Lastname</FormLabel>
+                            <TextField
+                                type="text"
+                                name="lastName"
+                                placeholder="Lastname"
+                                autoComplete="lastName"
+                                fullWidth
+                                variant="outlined"
+                                value={formik.values.lastName}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {getError("lastName")}
+                        </FormControl>
+                        <FormControl>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <TextField
-                                inputRef={emailRef}
                                 type="email"
                                 name="email"
                                 placeholder="your@email.com"
                                 autoComplete="email"
-                                autoFocus
-                                required
                                 fullWidth
                                 variant="outlined"
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
                             {getError("email")}
                         </FormControl>
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
                             <TextField
-                                inputRef={passwordRef}
                                 name="password"
                                 placeholder="••••••"
                                 type="password"
                                 autoComplete="current-password"
                                 fullWidth
                                 variant="outlined"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
                             {getError("password")}
                         </FormControl>
-                        <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        />
-                        <ForgotPassword open={open} handleClose={handleClose} />
-                        <Button type="submit" fullWidth variant="contained">
-                            Sign in
+                        <FormControl>
+                            <FormLabel htmlFor="confirmPassword">
+                                Confirm password
+                            </FormLabel>
+                            <TextField
+                                name="confirmPassword"
+                                placeholder="••••••"
+                                type="password"
+                                fullWidth
+                                variant="outlined"
+                                value={formik.values.confirmPassword}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            {getError("confirmPassword")}
+                        </FormControl>
+                        <Button color="error" type="submit" fullWidth variant="contained">
+                            Register
                         </Button>
-                        <Link
-                            component="button"
-                            type="button"
-                            onClick={handleClickOpen}
-                            variant="body2"
-                            sx={{ alignSelf: "center" }}
-                        >
-                            Forgot your password?
-                        </Link>
                     </Box>
-                    <Divider>or</Divider>
                     <Box
                         sx={{
                             display: "flex",
@@ -211,29 +234,10 @@ const LoginPage = () => {
                             gap: 2,
                         }}
                     >
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            onClick={() => alert("Sign in with Google")}
-                            startIcon={<GoogleIcon />}
-                        >
-                            Sign in with Google
-                        </Button>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            onClick={() => alert("Sign in with Facebook")}
-                            startIcon={<FacebookIcon />}
-                        >
-                            Sign in with Facebook
-                        </Button>
                         <Typography sx={{ textAlign: "center" }}>
-                            Ще не зареєстровані?{" "}
-                            <Link
-                                to="/register"
-                                style={{ alignSelf: "center" }}
-                            >
-                                Зареєструватися
+                            already registered?{" "}
+                            <Link to="/login" style={{ alignSelf: "center" }}>
+                                Увійти
                             </Link>
                         </Typography>
                     </Box>
@@ -243,4 +247,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

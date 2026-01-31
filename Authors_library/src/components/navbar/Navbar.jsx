@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,18 +7,22 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import { Tooltip, Avatar } from "@mui/material";
+import { Link } from "react-router";
+import { useAuth } from "../../context/AuthContext";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-const pages = ["Книги", "Автори"];
 const settings = ["Профіль", "Вийти"];
 
-const Navbar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+const Navbar = ({ isDark, setIsDark }) => {
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
+
+    const { isAuth, logout } = useAuth();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -35,6 +39,15 @@ const Navbar = () => {
         setAnchorElUser(null);
     };
 
+    const logoutButtonHandler = () => {
+        logout();
+        handleCloseUserMenu();
+    };
+
+    const changeThemeHandle = () => {
+        setIsDark(!isDark);
+    };
+
     return (
         <AppBar position="static" color="error">
             <Container maxWidth="xl">
@@ -46,7 +59,7 @@ const Navbar = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
@@ -92,16 +105,16 @@ const Navbar = () => {
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                >
-                                    <Typography sx={{ textAlign: "center" }}>
-                                        {page}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography sx={{ textAlign: "center" }}>
+                                    Книги
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography sx={{ textAlign: "center" }}>
+                                    Автори
+                                </Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <LibraryBooksIcon
@@ -131,23 +144,59 @@ const Navbar = () => {
                             display: { xs: "none", md: "flex" },
                         }}
                     >
-                        {pages.map((page) => (
+                        <Link to="/books">
                             <Button
-                                key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
-                                {page}
+                                Книги
                             </Button>
-                        ))}
+                        </Link>
+                        <Link to="/authors">
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: "white", display: "block" }}
+                            >
+                                Автори
+                            </Button>
+                        </Link>
                     </Box>
+                    
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Login">
-                            
-
-                        </Tooltip>
-                        <Tooltip title="Register">
-                        </Tooltip>
+                        {isAuth ? (
+                            <>
+                                <Tooltip title="Open settings">
+                                    <IconButton
+                                        onClick={handleOpenUserMenu}
+                                        sx={{ p: 0 }}
+                                    >
+                                        <Avatar
+                                            alt="Remy Sharp"
+                                            src="/static/images/avatar/2.jpg"
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login">
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ color: "white" }}
+                                    >
+                                        Увійти
+                                    </Button>
+                                </Link>
+                                <Link to="/register">
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ color: "white" }}
+                                    >
+                                        Зареєструватися
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
                         <Menu
                             sx={{ mt: "45px" }}
                             id="menu-appbar"
@@ -164,16 +213,16 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem
-                                    key={setting}
-                                    onClick={handleCloseUserMenu}
-                                >
-                                    <Typography sx={{ textAlign: "center" }}>
-                                        {setting}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography sx={{ textAlign: "center" }}>
+                                    Профіль
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem onClick={logoutButtonHandler}>
+                                <Typography sx={{ textAlign: "center" }}>
+                                    Вийти
+                                </Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

@@ -1,23 +1,41 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
+import MainPage from "./pages/MainPage/MainPage";
 import AuthorCreateForm from "./pages/AuthorsPages/AuthorCreateForm";
 import AuthorListPage from "./pages/AuthorsPages/AuthorListPage";
 import Registration from "./pages/AuthPages/RegistrationPage";
+import { Route, Routes } from "react-router";
+import { useEffect } from "react";
+import { useAuth } from "./context/AuthContext";
+import LoginPage from "./pages/AuthPages/LoginPage";
 
 function App() {
-    const [isAuth, setIsAuth] = useState(false);
+     const { isAuth, login, user } = useAuth();
 
-    // auth
     useEffect(() => {
         const authData = localStorage.getItem("auth");
         if (authData) {
-            setIsAuth(true);
+            login();
         }
     }, []);
+
     return (
         <>
             <Navbar />
-            {isAuth ? <AuthorListPage /> : <Registration />}
+            <Routes>
+                <Route index element={<MainPage />} />
+
+                <Route path="register" element={<Registration />} />
+                <Route path="login" element={<LoginPage />} />
+            
+                <Route path="authors">
+                    <Route index element={<AuthorListPage />} />
+                    <Route
+                        path="create"
+                        element={<AuthorCreateForm />}
+                    />
+                </Route>
+            </Routes>
         </>
     );
 }
