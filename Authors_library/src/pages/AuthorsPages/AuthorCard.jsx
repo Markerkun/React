@@ -1,16 +1,14 @@
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 
 const AuthorCard = ({ author, deleteCallback, favoriteCallback }) => {
 
@@ -52,9 +50,11 @@ const AuthorCard = ({ author, deleteCallback, favoriteCallback }) => {
             </CardContent>
 
             <CardActions disableSpacing style={{ padding: 0, justifyContent: "space-between" }}>
-                <IconButton>
-                    <ShareIcon />
-                </IconButton>
+                <Link to={`/update/${author.id}`}>
+                    <IconButton color="success" aria-label="share">
+                        <EditIcon />
+                    </IconButton>
+                </Link>
 
                 <IconButton
                     onClick={setFavoriteHandle}

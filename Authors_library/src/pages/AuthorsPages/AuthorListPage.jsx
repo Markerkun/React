@@ -2,7 +2,7 @@ import AuthorCard from "./AuthorCard";
 import AuthorCreateForm from "./AuthorCreateForm";
 import authorsJSON from "./authors.json";
 import { Box, Grid } from "@mui/material";
-import { useState, useEffect } from "react";    
+import { useState, useEffect } from "react";
     
 const AuthorListPage = () => {
     const [authors, setAuthors] = useState([]);

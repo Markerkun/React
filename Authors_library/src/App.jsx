@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router";
 import { useEffect } from "react";
 import { useAuth } from "./context/AuthContext";
 import LoginPage from "./pages/AuthPages/LoginPage";
+import AuthorUpdateForm from "./pages/AuthorsPages/AuthorUpdateForm";
 
 function App() {
      const { isAuth, login, user } = useAuth();
@@ -35,6 +36,7 @@ function App() {
                         element={<AuthorCreateForm />}
                     />
                 </Route>
+                <Route path="update/:id" element={<AuthorUpdateForm />} />
             </Routes>
         </>
     );
