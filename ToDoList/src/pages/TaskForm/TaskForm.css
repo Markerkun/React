@@ -1,0 +1,21 @@
+.task-form-container {
+  max-width: 400px;
+  margin: 40px auto;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-form input,
+.task-form textarea {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
